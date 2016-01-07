@@ -2,7 +2,6 @@
 // Generated on Thu Jan 07 2016 10:40:12 GMT+0800 (SGT)
 
 module.exports = function (config) {
-
   // Example set of browsers to run on Sauce Labs
   // Check out https://saucelabs.com/platforms for all browser/platform combos
   var customLaunchers = {
@@ -33,7 +32,10 @@ module.exports = function (config) {
 
   config.set({
 
-
+    sauceLabs: {
+      testName: 'Karma Test'
+    },
+    customLaunchers: customLaunchers,
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -59,7 +61,7 @@ module.exports = function (config) {
       'test/**/*.js': ['browserify']
     },
 
-    //Browserify configuration
+    // Browserify configuration
     browserify: {
       debug: true,
       transform: [
@@ -72,14 +74,11 @@ module.exports = function (config) {
 
     // The rest of your karma config is here
     // ...
-    sauceLabs: {
-        testName: 'Web App Unit Tests'
-    },
-    
+
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'saucelabs'],
 
     // web server port
     port: 9876,
@@ -96,11 +95,11 @@ module.exports = function (config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox'],
+    browsers: process.env.CI ? Object.keys(customLaunchers) : ['Chrome'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous

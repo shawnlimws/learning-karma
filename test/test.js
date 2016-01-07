@@ -1,4 +1,4 @@
-// var assert = require('assert')
+/* global describe assert it expect should */
 
 describe('Array', () => {
   describe('#indexOf()', () => {
